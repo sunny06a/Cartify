@@ -1,25 +1,30 @@
 const Product = require('../models/productModel');
 const ErrorHandler = require('../utils/errorhandler');
 const catchAsyncErrors = require('../middleware/catchAsyncError');
+const APIFeatures = require('../utils/apifeatures');
+
 
 //create new product by admin => /api/v1/product/new 
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
-
+    
     const product = await Product.create(req.body);
-    res.status(201).json({
+    res.status(201).json({  //201 means something is created
         success: true,
         product
     })
 });
   
 
-//get all products => /api/v1/products
+//get all products with Search and filter  => /api/v1/products
 exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
-
-    const product = await Product.create(req.body);
+    const resPerPage = 4;
+    const productCount = await Product.countDocuments();
+    const apiFeature= new APIFeatures(Product.find(), req.query).search().filter().pagination(resPerPage);
+    const product = await apiFeature.query;
     res.status(201).json({
         success: true,
-        product
+        product,
+        productCount
     })
 });
 
