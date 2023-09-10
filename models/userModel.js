@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
+const crypto = require("crypto");
 
 const userSchema = new mongoose.Schema({
     name:{
@@ -61,6 +61,18 @@ userSchema.methods.getJwtToken = function(){
 //compare user password
 userSchema.methods.comparePassword = async function(enteredPassword){
     return await bcrypt.compare(enteredPassword, this.password);
+}
+
+//Generate password reset token
+userSchema.methods.getResetPasswordToken = function(){
+    //Generate token of 20 characters
+    const resetToken = crypto.randomBytes(20).toString("hex");
+
+    //Hash and set to resetPasswordToken sha256 is a hashing algorithm , update is used to update the resetToken and digest is used to convert the resetToken into hexadecimal
+    this.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+    this.resetPasswordExpire = Date.now() + 5*60*1000; //5 minutes
+
+    return resetToken;
 }
 
 module.exports = mongoose.model('User', userSchema);
