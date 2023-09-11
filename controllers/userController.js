@@ -1,6 +1,7 @@
 const ErrorHandler = require('../utils/errorhandler');
 const catchAsyncErrors = require('../middleware/catchAsyncError');
 const User = require('../models/userModel');
+const Product = require('../models/productModel');
 const sendToken = require('../utils/jwttoken');
 const sendEmail = require('../utils/sendEmail');
 const crypto = require('crypto');
@@ -222,10 +223,9 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
     }
 
     //remove avatar from cloudinary
-
-
-    await user.remove();
-    res.status(200).json({
+     await user.remove();
+    
+     res.status(200).json({
         success: true,
         message: 'User deleted successfully'
     });
