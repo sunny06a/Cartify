@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Product = ({product}) => {
+const ProductCard = ({product}) => {
   return (
     <>
-       <Link className='productCard' to={Product.id}>
-        <img src={product.image} alt={product.name} />
+       <Link className='productCard' to={ProductCard.id}>
+        <img src={product.image[0].url} alt={product.name} />
         <p>{product.name}</p>
         <div>
             <p>Rs. {product.price}</p>
@@ -17,4 +17,4 @@ const Product = ({product}) => {
   )
 }
 
-export default Product
+export default ProductCard
