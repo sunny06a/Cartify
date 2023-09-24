@@ -1,20 +1,27 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
+import { Rating } from "@mui/material";
+const ProductCard = ({ product }) => {
+    const options = {
+        value: product.ratings,
+        readOnly: true,
+        precision: 0.5,
+    };
 
-const ProductCard = ({product}) => {
-  return (
-    <>
-       <Link className='productCard' to={ProductCard.id}>
-        <img src={product.image[0].url} alt={product.name} />
-        <p>{product.name}</p>
-        <div>
-            <p>Rs. {product.price}</p>
-            <button>Add to Cart</button>
-        </div>
-        <span>Free Shipping</span>
-       </Link>
-    </>
-  )
-}
+        return (
+    <Link className="productCard" to={`/product/${product._id}`}>
+      <img src={product.images[0].url} alt={product.name} />
+      <p>{product.name}</p>
+      <div>
+        <Rating {...options} />{" "}
+        <span className="productCardSpan">
+          {" "}
+          ({product.numOfReviews} Reviews)
+        </span>
+      </div>
+      <span>{`₹${product.price}`}</span>
+    </Link>
+  );
+};
 
-export default ProductCard
+export default ProductCard;
