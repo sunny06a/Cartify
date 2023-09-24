@@ -2,21 +2,30 @@ import React, { Fragment, useEffect } from 'react'
 import Carousel from 'react-material-ui-carousel'
 import './ProductDetails.css'
 import {useSelector,useDispatch} from 'react-redux'
-import { getProductDetails } from '../../actions/productActions'
+import { clearErrors, getProductDetails } from '../../actions/productActions'
 import {useParams} from 'react-router-dom'
 import { Rating } from '@mui/material'
 import MetaData from '../layout/MetaData'
+import Loader from '../layout/Loader/Loader'
 
 const ProductDetails = (match) => {
   const dispatch = useDispatch()
   const params = useParams()
   const {loading,product,error} = useSelector(state => state.productDetails)
   useEffect(() => {
+    if(error){
+      dispatch(clearErrors());
+    }
     dispatch(getProductDetails(params.id))
-  }, [dispatch], params.id)
+  }, [dispatch, params.id, error])
 
   return (
     <Fragment>
+      {
+        loading ? (<Loader/>) :
+        (
+          <Fragment>
+            
        <MetaData title={`${product.name} --  CArtify`} />
           <div className="ProductDetails">
             <div>
@@ -78,51 +87,11 @@ const ProductDetails = (match) => {
               </button>
             </div>
           </div>
-
           <h3 className="reviewsHeading">REVIEWS</h3>
-{/* 
-          <Dialog
-            aria-labelledby="simple-dialog-title"
-            open={open}
-            onClose={submitReviewToggle}
-          >
-            <DialogTitle>Submit Review</DialogTitle>
-            <DialogContent className="submitDialog">
-              <Rating
-                onChange={(e) => setRating(e.target.value)}
-                value={rating}
-                size="large"
-              />
-
-              <textarea
-                className="submitDialogTextArea"
-                cols="30"
-                rows="5"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-              ></textarea>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={submitReviewToggle} color="secondary">
-                Cancel
-              </Button>
-              <Button onClick={reviewSubmitHandler} color="primary">
-                Submit
-              </Button>
-            </DialogActions>
-          </Dialog>
-
-          {product.reviews && product.reviews[0] ? (
-            <div className="reviews">
-              {product.reviews &&
-                product.reviews.map((review) => (
-                  <ReviewCard key={review._id} review={review} />
-                ))}
-            </div>
-          ) : (
-            <p className="noReviews">No Reviews Yet</p>
-          )}    */}
-    </Fragment>
+          </Fragment>
+        )
+      }
+</Fragment>
   )
 }
 

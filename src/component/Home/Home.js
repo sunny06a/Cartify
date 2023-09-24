@@ -13,10 +13,10 @@ const Home = () => {
   const { loading, error, products } = useSelector((state) => state.products);
   console.log(products);
   useEffect(() => {
-    // if (error) {
-    //   alert.error(error);
-    //   dispatch(clearErrors());
-    // }
+    if (error) {
+      // alert.error(error);
+      dispatch(clearErrors());
+    }
     dispatch(getProduct());
   }, [dispatch, error]);
 

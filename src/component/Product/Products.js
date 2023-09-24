@@ -6,11 +6,32 @@ import ProductCard from "../Home/ProductCard";
 import "./Products.css";
 import { useParams } from "react-router-dom";
 import Pagination from "react-js-pagination";
- 
+import { Slider, Typography } from "@mui/material"; 
+import MetaData from "../layout/MetaData";
+
+const categories = [
+  'Electronics',
+  'Cameras',
+  'laptop',
+  'Accessories',
+  'Headphones',
+  'Food',
+  'Books',
+  'Clothes/Shoes',
+  'Beauty/Health',
+  'Sports',
+  'Outdoor',
+  'Home'
+]
+
+
 const Products = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
-  
+  const [price, setPrice] = useState([0, 2500]);
+  const [category, setCategory] = useState("");
+  const [ratings , setRatings] = useState(0) 
+ 
   const params = useParams();
   const keyword = params.keyword;
   
@@ -18,22 +39,32 @@ const Products = () => {
         setCurrentPage(pageNumber);
     }
 
-  const { loading, products, error, productsCount , resultPerPage } =
+    const priceHandler = (event, newPrice) => {
+        setPrice(newPrice);
+    }
+
+  const { loading, products, error, productsCount , resultPerPage, filteredProductsCount } =
     useSelector((state) => state.products);
   useEffect(
     () => {
-      dispatch(getProduct(keyword, currentPage));
-      console.log(currentPage);
+      if(error){
+        dispatch(clearErrors())
+      }
+      dispatch(getProduct(keyword, currentPage, price, category,ratings));
+      // console.log(currentPage);
     },
-    [dispatch,keyword,currentPage],
+    [dispatch,keyword,currentPage,price, category,ratings,error]);
+
     
-  );
+    let count = filteredProductsCount;
+
   return (
     <Fragment>
       {loading ? (
         <Loader />
       ) : (
         <Fragment>
+          <MetaData title={"Products | Cartify "}/>
           <h2 className="productsHeading">Latest Products</h2>
           <div className="products">
             {products &&
@@ -41,8 +72,46 @@ const Products = () => {
                 <ProductCard key={product._id} product={product} />
               ))}
           </div>
+
+          <div className="filterBox">
+              <Typography>
+                Price
+              </Typography>
+              <Slider
+                value={price}
+                onChange={priceHandler}
+                min={0}
+                max={2500}
+                valueLabelDisplay="auto"
+                aria-labelledby="range-slider"
+              />
+
+              <Typography>Category</Typography>
+              <ul className="categoryBox">
+                {
+                  categories.map(category => (
+                    <li className='category-link' key={category} onClick={() => setCategory(category)}>
+                    {category}
+                    </li>
+                  ))
+                }
+              </ul>
+              <fieldset>
+                <Typography component="legend">Rating above</Typography>
+                <Slider
+                  value={ratings}
+                  onChange={(e,newRatings) => { setRatings(newRatings) }}
+                  aria-labelledby="continuous-slider"
+                  valueLabelDisplay="auto"
+                  min={0}
+                  max={5}
+                />
+              </fieldset>
+
+          </div>
+
          {
-            resultPerPage < productsCount && 
+            resultPerPage < count && 
             (
                 <div className="paginationBox">
                 <Pagination

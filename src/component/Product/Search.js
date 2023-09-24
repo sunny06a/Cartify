@@ -16,7 +16,7 @@ const Search = () => {
 
   return (
     <Fragment>
-      <MetaData title="Search A Product -- Cartify" />
+      <MetaData title="Search A Product | Cartify" />
       <form className="searchBox" onSubmit={searchSubmitHandler}>
         <input
           type="text"
