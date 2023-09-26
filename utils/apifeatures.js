@@ -25,7 +25,7 @@ class ApiFeatures {
         removeFields.forEach(el => delete queryCopy[el]);
         //advance filter for price, ratings etc
         let queryStr = JSON.stringify(queryCopy);
-        queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, match => `$${match}`); //replace gt with $gt etc,
+        queryStr = queryStr.replace(/\b( gt|gte|lt|lte)\b/g, match => `$${match}`); //replace gt with $gt etc,
         this.query = this.query.find(JSON.parse(queryStr));
         return this;
     }
