@@ -7,11 +7,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { login, clearErrors, register } from '../../actions/userActions'
 import { useNavigate } from 'react-router-dom'
 
-
-
 const LoginSignUp = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    
+    const {loading, error, isAuthenticated} = useSelector(state => state.user);
+    
     const loginTab = useRef(null);
     const registerTab = useRef(null);        
     const switcherTab = useRef(null);
@@ -19,14 +20,13 @@ const LoginSignUp = () => {
     const [loginEmail, setLoginEmail] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
     
-    const {loading, error, isAuthenticated} = useSelector(state => state);
     
     const [user, setUser] = useState({name:"", email:"", password:""});
 
     const {name, email, password} = user;
 
-    const [avatar, setAvatar] = useState('');
-    const [avatarPreview, setAvatarPreview] = useState('../../../images/default_avatar.jpg');
+    const [avatar, setAvatar] = useState('./Profile.png');
+    const [avatarPreview, setAvatarPreview] = useState('./Profile.png');
 
     const loginSubmit = (e) => {
         e.preventDefault();
@@ -65,7 +65,7 @@ const LoginSignUp = () => {
             dispatch(clearErrors());
         }  
         if(isAuthenticated){
-            navigate('/dashboard');
+            navigate('/me');
         }
     },[dispatch, error, isAuthenticated, navigate]);
 
@@ -113,26 +113,57 @@ const LoginSignUp = () => {
                         <Link to='/password/forgot'>Forgot Password?</Link>
                         <input type='submit' value='Login' className='loginBtn'/>
                     </form>
-                    <form className='signUpForm' ref={registerTab} encType='multipart/form-data' onSubmit={registerSubmit}>
-                        <div className='signUpName'>
-                            <Face2/>
-                            <input type='text' placeholder='Name' required value={name} onChange={registerDataChange}/>
-                        </div>
-                        <div  className='signUpEmail'>
-                            <MailOutline/>
-                            <input type='email' placeholder='Email' required value={email} onChange={registerDataChange}/>
-                        </div>
-                        <div  className='signUpPassword'>
-                            <LockOutlined/>
-                            <input type='password' placeholder='Password' required value={password} onChange={registerDataChange}/>
-                        </div>
-                        <div id='registerImage'>
-                            <img src={avatarPreview} alt='Avatar Preview'/>
-                            <input type='file' name='avatar' accept='images/*' onChange={registerDataChange}/>
-                        </div>
-                        <input type='submit' value='Register' className='signUpBtn' />
-                     
-                    </form>
+                    <form
+                className="signUpForm"
+                ref={registerTab}
+                encType="multipart/form-data"
+                onSubmit={registerSubmit}
+              >
+                <div className="signUpName">
+                  <Face2 />
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    required
+                    name="name"
+                    value={name}
+                    onChange={registerDataChange}
+                  />
+                </div>
+                <div className="signUpEmail">
+                  <MailOutline />
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    required
+                    name="email"
+                    value={email}
+                    onChange={registerDataChange}
+                  />
+                </div>
+                <div className="signUpPassword">
+                  <LockOutlined />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    required
+                    name="password"
+                    value={password}
+                    onChange={registerDataChange}
+                  />
+                </div>
+
+                <div id="registerImage">
+                  <img src={avatarPreview} alt="Avatar Preview" />
+                  <input
+                    type="file"
+                    name="avatar"
+                    accept="image/*"
+                    onChange={registerDataChange}
+                  />
+                </div>
+                <input type="submit" value="Register" className="signUpBtn" />
+              </form>
                 </div>
             </div>
         </Fragment>
