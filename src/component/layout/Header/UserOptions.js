@@ -1,9 +1,13 @@
 import { Dashboard, ExitToApp, ListAlt, Person } from '@mui/icons-material';
-import { SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material'
+import { Backdrop, SpeedDial, SpeedDialAction } from '@mui/material'
 import React, { Fragment, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import {useNavigate} from 'react-router-dom'
 import { logout } from '../../../actions/userActions';
+import './Header.css'
+
+
+
 const UserOptions = ({user}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -25,7 +29,7 @@ const UserOptions = ({user}) => {
       navigate('/orders');
     }
     function account(){
-      navigate('/profile');
+      navigate('/account');
     }
     function logoutUser(){
       dispatch(logout());
@@ -34,11 +38,14 @@ const UserOptions = ({user}) => {
 
   return (
     <Fragment>
+      <Backdrop open={open} style={{zIndex:"10"}} />
         <SpeedDial
             ariaLabel="SpeedDial tooltip example"
             onClose={() => SetOpen(false)}
             onOpen={() => SetOpen(true)}
             open={open}
+            className='speedDial'
+            style={{zIndex:"11"}}
             direction='down'
             icon={
                 <img className='speedDialIcon'

@@ -13,6 +13,9 @@ import store from './store';
 import { loadUser } from './actions/userActions';
 import { useSelector } from 'react-redux';
 import UserOptions from './component/layout/Header/UserOptions';
+import Profile from './component/User/Profile';
+import ProtectedRoute from './component/Route/ProtectedRoute';
+
 function App() {
   const {isAuthenticated, user} = useSelector((state) => state.user);
   // load font before rendering 
@@ -30,22 +33,25 @@ function App() {
     <Header/>
     {isAuthenticated && <UserOptions user={user}/> }
     <Routes>
-      <Route path="/" element={<Home/>} />
+      <Route exact path="/" element={<Home/>} />
     </Routes>
     <Routes>
-      <Route path="/product/:id" element={<ProductDetails/>} />
+      <Route  path="/product/:id" element={<ProductDetails/>} />
     </Routes>
     <Routes>
-      <Route path="/products" element={<Products/>} />
+      <Route exact path="/products" element={<Products/>} />
     </Routes>
     <Routes>
       <Route path="/products/:keyword" element={<Products/>} />
     </Routes>
     <Routes>
-      <Route path="/search" element={<Search/>} />
+      <Route exact path="/search" element={<Search/>} />
     </Routes>
     <Routes>
-      <Route path="/login" element={<LoginSignUp/>} />
+      <Route exact path="/login" element={<LoginSignUp/>} />
+    </Routes>
+    <Routes>
+    <ProtectedRoute exact path="/account" element={<Profile/>} />
     </Routes>
     <Footer/>
     </BrowserRouter> 
