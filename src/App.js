@@ -8,6 +8,7 @@ import Home from './component/Home/Home';
 import ProductDetails from './component/Product/ProductDetails';
 import Products from './component/Product/Products';
 import Search from './component/Product/Search';
+import LoginSignUp from './component/User/LoginSignUp';
 function App() {
 
   // load font before rendering 
@@ -36,6 +37,9 @@ function App() {
     </Routes>
     <Routes>
       <Route path="/search" element={<Search/>} />
+    </Routes>
+    <Routes>
+      <Route path="/login" element={<LoginSignUp/>} />
     </Routes>
     <Footer/>
     </BrowserRouter> 
