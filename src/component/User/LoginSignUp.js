@@ -65,7 +65,7 @@ const LoginSignUp = () => {
             dispatch(clearErrors());
         }  
         if(isAuthenticated){
-            navigate('/me');
+            navigate('/profile');
         }
     },[dispatch, error, isAuthenticated, navigate]);
 

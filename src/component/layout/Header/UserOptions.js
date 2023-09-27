@@ -14,7 +14,7 @@ const UserOptions = ({user}) => {
     const [open, SetOpen] = useState(false);
     const options = [
       { icon: <ListAlt />, name: 'Orders', func:orders},
-      { icon: <Person />, name: 'Profile', func:account},
+      { icon: <Person />, name: 'Profile', func:profile},
       { icon: <ExitToApp />, name: 'Logout', func:logoutUser}
       ];
 
@@ -28,8 +28,8 @@ const UserOptions = ({user}) => {
     function orders(){
       navigate('/orders');
     }
-    function account(){
-      navigate('/account');
+    function profile(){
+      navigate('/profile');
     }
     function logoutUser(){
       dispatch(logout());
