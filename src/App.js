@@ -16,6 +16,9 @@ import UserOptions from './component/layout/Header/UserOptions';
 import Profile from './component/User/Profile';
 import ProtectedRoute from './component/Route/ProtectedRoute';
 import UpdateProfile from './component/User/UpdateProfile';
+import UpdatePassword from './component/User/UpdatePassword';
+import ForgotPassword from './component/User/ForgotPassword';
+import ResetPassword from './component/User/ResetPassword';
 
 function App() {
   const {isAuthenticated, user} = useSelector((state) => state.user);
@@ -71,6 +74,29 @@ function App() {
         }
       />
     </Routes>
+    <Routes>
+    <Route
+        path="/password/update"
+        element={
+          <ProtectedRoute redirectTo="/login">
+            <UpdatePassword />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+    <Routes>
+    <Route
+        path="/password/forgot"
+        element={
+            <ForgotPassword />
+        }
+      />
+    </Routes>
+
+    <Routes>
+      <Route path ="/password/reset/:token" element={<ResetPassword/>} />
+    </Routes>
+
     <Footer/>
     </BrowserRouter> 
   );
