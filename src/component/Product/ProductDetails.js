@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import Carousel from 'react-material-ui-carousel'
 import './ProductDetails.css'
 import {useSelector,useDispatch} from 'react-redux'
@@ -7,11 +7,29 @@ import {useParams} from 'react-router-dom'
 import { Rating } from '@mui/material'
 import MetaData from '../layout/MetaData'
 import Loader from '../layout/Loader/Loader'
+import { addItemsToCart } from '../../actions/CartActions'
 
-const ProductDetails = (match) => {
+const ProductDetails = () => {
   const dispatch = useDispatch()
   const params = useParams()
   const {loading,product,error} = useSelector(state => state.productDetails)
+  
+  const [quantity,setQuantity] = useState(1);
+  const increaseQuantity = () =>{
+    if(product.Stock<=quantity) return;
+    const qty =quantity+1;
+    setQuantity(qty);
+  }
+  const decreaseQuantity = () =>{
+    if(quantity>=1) return;
+    const qty=quantity-1;
+    setQuantity(qty);
+  }
+
+  const addtoCartHandler = () =>{
+    dispatch(addItemsToCart(params.id,quantity))
+    console.log(params.id,quantity)
+  } 
   useEffect(() => {
     if(error){
       dispatch(clearErrors());
@@ -58,13 +76,14 @@ const ProductDetails = (match) => {
                 <h1>{`₹${product.price}`}</h1>
                 <div className="detailsBlock-3-1">
                   <div className="detailsBlock-3-1-1">
-                    <button >-</button>
-                    <input readOnly type="number" />
-                    <button >+</button>
+                    <button onClick={decreaseQuantity}>-</button>
+                    <button onClick={increaseQuantity}>+</button>
+                    <input type='number' readOnly value={quantity} />
+                   
                   </div>
                   <button
                     disabled={product.Stock < 1 ? true : false}
-                   
+                    onClick={addtoCartHandler}
                   >
                     Add to Cart
                   </button>
