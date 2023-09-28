@@ -1,7 +1,7 @@
-import { Dashboard, ExitToApp, ListAlt, Person } from '@mui/icons-material';
+import { Dashboard, ExitToApp, ListAlt, Person, ShoppingCart } from '@mui/icons-material';
 import { Backdrop, SpeedDial, SpeedDialAction } from '@mui/material'
 import React, { Fragment, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {useNavigate} from 'react-router-dom'
 import { logout } from '../../../actions/userActions';
 import './Header.css'
@@ -11,12 +11,14 @@ import './Header.css'
 const UserOptions = ({user}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const {cartItems} = useSelector(state => state.cart);
     const [open, SetOpen] = useState(false);
     const options = [
       { icon: <ListAlt />, name: 'Orders', func:orders},
       { icon: <Person />, name: 'Profile', func:profile},
+      { icon: <ShoppingCart style={{color:cartItems.length>0?"tomato":"unset"}}/>, name: `cart${cartItems.length}`, func:cart},
       { icon: <ExitToApp />, name: 'Logout', func:logoutUser}
-      ];
+      ];  
 
     if(user.role === 'admin'){
         options.unshift({ icon: <Dashboard />, name: 'Dashboard', func:dashboard})
@@ -30,6 +32,9 @@ const UserOptions = ({user}) => {
     }
     function profile(){
       navigate('/profile');
+    }
+    function cart(){
+      navigate('/cart');
     }
     function logoutUser(){
       dispatch(logout());
@@ -59,6 +64,7 @@ const UserOptions = ({user}) => {
                 icon={option.icon}
                 tooltipTitle={option.name}
                 onClick={option.func}
+                tooltipOpen={window.innerWidth <= 600 ? true : false}
                 />
             ))}
             </SpeedDial>
