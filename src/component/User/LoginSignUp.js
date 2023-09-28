@@ -5,12 +5,12 @@ import { Link } from '@mui/material'
 import './LoginSignUp.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { login, clearErrors, register } from '../../actions/userActions'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,useLocation } from 'react-router-dom'
 
 const LoginSignUp = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    
+    const location = useLocation();
     const {loading, error, isAuthenticated} = useSelector(state => state.user);
     
     const loginTab = useRef(null);
@@ -59,15 +59,16 @@ const LoginSignUp = () => {
             setUser({...user, [e.target.name]:e.target.value});
         }
     }
-
+    let redirect = location.search ? location.search.split('=')[1] : '/';
+    
     useEffect(() => {
-        if(error){
+        if(error){ 
             dispatch(clearErrors());
         }  
         if(isAuthenticated){
-            navigate('/profile');
+            navigate(redirect);
         }
-    },[dispatch, error, isAuthenticated, navigate]);
+    },[dispatch, error, isAuthenticated,location.search, redirect, navigate]);
 
 
 
