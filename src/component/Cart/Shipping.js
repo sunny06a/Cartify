@@ -20,19 +20,19 @@ const Shipping = ({ history }) => {
   const [city, setCity] = useState(shippingInfo.city);
   const [state, setState] = useState(shippingInfo.state);
   const [country, setCountry] = useState(shippingInfo.country);
-  const [pinCode, setPinCode] = useState(shippingInfo.pinCode);
-  const [phoneNo, setPhoneNo] = useState(shippingInfo.phoneNo);
+  const [pincode, setPinCode] = useState(shippingInfo.pincode);
+  const [phoneNumber, setPhoneNo] = useState(shippingInfo.phoneNumber);
 
   const shippingSubmit = (e) => {
     e.preventDefault();
 
-    if (phoneNo.length < 10 || phoneNo.length > 10) {
+    if (phoneNumber.length < 10 || phoneNumber.length > 10) {
     //   alert.error("Phone Number should be 10 digits Long");
      console.log("Phone Number should be 10 digits Long");
       return;
     }
     dispatch(
-      saveShippingInfo({ address, city, state, country, pinCode, phoneNo })
+      saveShippingInfo({ address, city, state, country, pincode, phoneNumber })
     );
     navigate("/order/confirm");
   };
@@ -80,7 +80,7 @@ const Shipping = ({ history }) => {
                 type="number"
                 placeholder="Pin Code"
                 required
-                value={pinCode}
+                value={pincode}
                 onChange={(e) => setPinCode(e.target.value)}
               />
             </div>
@@ -91,7 +91,7 @@ const Shipping = ({ history }) => {
                 type="number"
                 placeholder="Phone Number"
                 required
-                value={phoneNo}
+                value={phoneNumber}
                 onChange={(e) => setPhoneNo(e.target.value)}
                 size="10"
               />

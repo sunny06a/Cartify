@@ -1,7 +1,7 @@
 import './App.css';
 import Header from './component/layout/Header/Header';
 import WebFont from 'webfontloader';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './component/layout/Footer/Footer';
 import Home from './component/Home/Home';
@@ -22,17 +22,32 @@ import ResetPassword from './component/User/ResetPassword';
 import Cart from './component/Cart/Cart';
 import Shipping from './component/Cart/Shipping';
 import ConfirmOrder from './component/Cart/ConfirmOrder';
+import axios from 'axios';
+import Payment from './component/Cart/Payment';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import OrderSuccess from './component/Cart/OrderSuccess';
 
 function App() {
   const {isAuthenticated, user} = useSelector((state) => state.user);
+  
+  const [stripeApiKey, setStripeApiKey] = useState('');
+  
+  async function getStripeApiKey() { 
+    const { data } = await axios.get('/api/v1/stripeapikey');
+    setStripeApiKey(data.stripeApiKey);
+  }
+  
+    
   // load font before rendering 
-  React.useEffect(() => {
+  useEffect(() => {
     WebFont.load({
       google: {
         families: ['Roboto', 'sans-serif']
       }
     });
     store.dispatch(loadUser());
+    getStripeApiKey();
   }, []);
   
   return (
@@ -111,6 +126,8 @@ function App() {
           </ProtectedRoute>
         }
       />
+    </Routes>
+    <Routes>
     <Route
         path="/order/confirm"
         element={
@@ -119,7 +136,35 @@ function App() {
           </ProtectedRoute>
         }
       />  
-    </Routes>  
+    </Routes> 
+    {
+      stripeApiKey && 
+      <Elements stripe={loadStripe(stripeApiKey)}>
+        <Routes>
+          <Route
+            path="/payment/process"
+            element={
+              <ProtectedRoute redirectTo="/login">
+                <Payment/>
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </Elements>
+    }
+    
+    <Routes>
+    <Route
+        path="/success"
+        element={
+          <ProtectedRoute redirectTo="/login">
+            <OrderSuccess/>
+          </ProtectedRoute>
+        }
+      />  
+    </Routes> 
+    
+    
     <Footer/>
     </BrowserRouter> 
   );

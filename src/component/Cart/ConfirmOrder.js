@@ -22,7 +22,7 @@ const ConfirmOrder = () => {
 
   const totalPrice = subtotal + tax + shippingCharges;
 
-  const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}, ${shippingInfo.country}`;
+  const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pincode}, ${shippingInfo.country}`;
 
   const proceedToPayment = () => {
     const data = {
@@ -34,7 +34,7 @@ const ConfirmOrder = () => {
 
     sessionStorage.setItem("orderInfo", JSON.stringify(data));
 
-    navigate("/process/payment");
+    navigate("/payment/process");
   };
 
   return (
@@ -52,7 +52,7 @@ const ConfirmOrder = () => {
               </div>
               <div>
                 <p>Phone:</p>
-                <span>{shippingInfo.phoneNo}</span>
+                <span>{shippingInfo.phoneNumber}</span>
               </div>
               <div>
                 <p>Address:</p>
