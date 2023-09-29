@@ -27,6 +27,8 @@ import Payment from './component/Cart/Payment';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import OrderSuccess from './component/Cart/OrderSuccess';
+import MyOrders from './component/Order/MyOrders';
+import OrderDetails from './component/Order/OrderDetails';
 
 function App() {
   const {isAuthenticated, user} = useSelector((state) => state.user);
@@ -129,7 +131,7 @@ function App() {
     </Routes>
     <Routes>
     <Route
-        path="/order/confirm"
+       exact path="/order/confirm"
         element={
           <ProtectedRoute redirectTo="/login">
             <ConfirmOrder/>
@@ -162,8 +164,28 @@ function App() {
           </ProtectedRoute>
         }
       />  
-    </Routes> 
-    
+    </Routes>
+
+    <Routes>
+    <Route
+        path="/orders"
+        element={
+          <ProtectedRoute redirectTo="/login">
+            <MyOrders/>
+          </ProtectedRoute>
+        }
+      />  
+    </Routes>
+    <Routes>
+    <Route
+        path="/order/:id"
+        element={
+          <ProtectedRoute redirectTo="/login">
+            <OrderDetails/>
+          </ProtectedRoute>
+        }
+      />  
+    </Routes>
     
     <Footer/>
     </BrowserRouter> 
