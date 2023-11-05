@@ -33,7 +33,12 @@ import OrderDetails from './component/Order/OrderDetails';
 import Dashboard from './component/Admin/Dashboard';
 import ProductList from './component/Admin/ProductList';
 import NewProduct from './component/Admin/NewProduct';
-
+import UpdateProduct from './component/Admin/UpdateProduct';
+import OrderList from './component/Admin/OrderList';
+import ProcessOrder from './component/Admin/ProcessOrder';
+import UserList from './component/Admin/UserList';
+import UpdateUser from './component/Admin/UpdateUser';
+import ProductReviews from './component/Admin/ProductReviews';
 function App() {
   const {isAuthenticated, user} = useSelector((state) => state.user);
   
@@ -221,6 +226,81 @@ function App() {
         }
       />
     </Routes>
+    
+    <Routes>
+    <Route
+        path="/admin/product"
+        element={
+          <ProtectedRoute redirectTo="/login">
+            <NewProduct/>
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+    
+    <Routes>
+    <Route
+        path="/admin/product/:id"
+        element={
+          <ProtectedRoute redirectTo="/login">
+            <UpdateProduct/>
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+    
+    <Routes>
+    <Route
+        path="/admin/orders"
+        element={
+          <ProtectedRoute redirectTo="/login">
+            <OrderList/>
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+    <Routes>
+    <Route
+        path="/admin/order/:id"
+        element={
+          <ProtectedRoute redirectTo="/login">
+            <ProcessOrder/>
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+    <Routes>
+    <Route
+        path="/admin/users"
+        element={
+          <ProtectedRoute redirectTo="/login">
+            <UserList/>
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+
+    <Routes>
+    <Route
+        path="/admin/user/:id"
+        element={
+          <ProtectedRoute redirectTo="/login">
+            <UpdateUser/>
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+    <Routes>
+    <Route
+        path="/admin/reviews"
+        element={
+          <ProtectedRoute redirectTo="/login">
+            <ProductReviews/>
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+
     <Footer/>
     </BrowserRouter> 
   );

@@ -16,11 +16,23 @@ import {
     NEW_PRODUCT_REQUEST,
     NEW_PRODUCT_SUCCESS,
     NEW_PRODUCT_FAIL,
-    NEW_PRODUCT_RESET,
+    // NEW_PRODUCT_RESET,
+    UPDATE_PRODUCT_REQUEST,
+    UPDATE_PRODUCT_SUCCESS,
+    // UPDATE_PRODUCT_RESET,
+    UPDATE_PRODUCT_FAIL,
     DELETE_PRODUCT_REQUEST,
     DELETE_PRODUCT_SUCCESS,
-    DELETE_PRODUCT_RESET,
+    // DELETE_PRODUCT_RESET,
     DELETE_PRODUCT_FAIL,
+    
+    ALL_REVIEWS_REQUEST,
+    ALL_REVIEWS_SUCCESS,
+    ALL_REVIEWS_FAIL,
+    DELETE_REVIEW_REQUEST,
+    DELETE_REVIEW_SUCCESS,
+    DELETE_REVIEW_RESET,
+    DELETE_REVIEW_FAIL,
     CLEAR_ERRORS } from "../constants/productConstants"
 
 
@@ -138,6 +150,30 @@ export const createProduct = (productData) => async (dispatch) => {
     }
 }
 
+export const updateProduct = (id, productData) => async (dispatch) => {
+    try{
+        dispatch({
+            type:UPDATE_PRODUCT_REQUEST
+        })
+        const config = {
+            headers:{
+                'Content-Type':'multipart/form-data'
+            }
+        }
+        const {data} = await axios.put(`/api/v1/admin/product/${id}`, productData, config);
+        dispatch({
+            type:UPDATE_PRODUCT_SUCCESS,
+            payload:data.success
+        })
+    }
+    catch(error){
+        dispatch({
+            type:UPDATE_PRODUCT_FAIL,
+            payload:error.response.data.message
+        })
+    }
+}
+
 export const deleteProduct = (id) => async (dispatch) => {
     try{
         dispatch({
@@ -152,6 +188,44 @@ export const deleteProduct = (id) => async (dispatch) => {
     catch(error){
         dispatch({
             type:DELETE_PRODUCT_FAIL,
+            payload:error.response.data.message
+        })
+    }
+}
+
+export const getAllReviews = (id) => async (dispatch) => {
+    try{
+        dispatch({
+            type:ALL_REVIEWS_REQUEST
+        })
+        const {data} = await axios.get(`/api/v1/reviews?id=${id}`);
+        dispatch({
+            type:ALL_REVIEWS_SUCCESS,
+            payload:data.reviews
+        })
+    }
+    catch(error){
+        dispatch({
+            type:ALL_REVIEWS_FAIL,
+            payload:error.response.data.message
+        })
+    }
+}
+
+export const deleteReviews = (id, productId) => async (dispatch) => {
+    try{
+        dispatch({
+            type:DELETE_REVIEW_REQUEST
+        })
+        const {data} = await axios.delete(`/api/v1/reviews?id=${id}&productId=${productId}`);
+        dispatch({
+            type:DELETE_REVIEW_SUCCESS,
+            payload:data.success
+        })
+    }
+    catch(error){
+        dispatch({
+            type:DELETE_REVIEW_FAIL,
             payload:error.response.data.message
         })
     }

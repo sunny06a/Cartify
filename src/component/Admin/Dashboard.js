@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { Doughnut, Line } from "react-chartjs-2";
 import { useSelector, useDispatch } from "react-redux";
 import { getAdminProduct } from "../../actions/productActions";
-// import { getAllOrders } from "../../actions/OrderActions.js";
-// import { getAllUsers } from "../../actions/userActions.js";
+import { getAllOrders } from "../../actions/OrderActions.js";
+import { getAllUsers } from "../../actions/userActions.js";
 import MetaData from "../layout/MetaData";
 import { Typography } from "@mui/material";
 
@@ -30,8 +30,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getAdminProduct());
-    // dispatch(getAllOrders());
-    // dispatch(getAllUsers());
+    dispatch(getAllOrders());
+    dispatch(getAllUsers());
   }, [dispatch]);
 
   let totalAmount = 0;
