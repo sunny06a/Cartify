@@ -5,20 +5,21 @@ import {
   clearErrors,
   getAdminProduct,
   deleteProduct,
-} from "../../actions/productAction";
+} from "../../actions/productActions";
 import { Link } from "react-router-dom";
 // import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
 import SideBar from "./Sidebar";
-// import { DELETE_PRODUCT_RESET } from "../../constants/productConstants";
 import {useNavigate} from 'react-router-dom';
 import { DataGrid } from "@mui/x-data-grid";
 import { Delete, Edit } from "@mui/icons-material";
 import { Button } from "@mui/material";
+import { DELETE_PRODUCT_RESET } from "../../constants/productConstants";
+
 const ProductList = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-//   const alert = useAlert();
+    // const params = useParams();
 
   const { error, products } = useSelector((state) => state.products);
 
