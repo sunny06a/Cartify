@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux';
 import UserOptions from './component/layout/Header/UserOptions';
 import Profile from './component/User/Profile';
 import ProtectedRoute from './component/Route/ProtectedRoute';
+// import AdminRoute from './component/Route/AdminRoute';
 import UpdateProfile from './component/User/UpdateProfile';
 import UpdatePassword from './component/User/UpdatePassword';
 import ForgotPassword from './component/User/ForgotPassword';
@@ -29,6 +30,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import OrderSuccess from './component/Cart/OrderSuccess';
 import MyOrders from './component/Order/MyOrders';
 import OrderDetails from './component/Order/OrderDetails';
+import Dashboard from './component/Admin/Dashboard';
+import ProductList from './component/Admin/ProductList';
 
 function App() {
   const {isAuthenticated, user} = useSelector((state) => state.user);
@@ -186,7 +189,27 @@ function App() {
         }
       />  
     </Routes>
-    
+    <Routes>
+    <Route
+        path="/admin/dashboard"
+        element={
+          <ProtectedRoute redirectTo="/login">
+            <Dashboard/>
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+    <Routes>
+    <Route
+        path="/admin/products"
+        element={
+          <ProtectedRoute redirectTo="/login">
+            <ProductList/>
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+
     <Footer/>
     </BrowserRouter> 
   );

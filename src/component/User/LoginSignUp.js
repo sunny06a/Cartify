@@ -13,6 +13,7 @@ const LoginSignUp = () => {
     const location = useLocation();
     const {loading, error, isAuthenticated} = useSelector(state => state.user);
     
+    
     const loginTab = useRef(null);
     const registerTab = useRef(null);        
     const switcherTab = useRef(null);
