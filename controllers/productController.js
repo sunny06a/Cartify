@@ -167,3 +167,15 @@ exports.deleteReview = catchAsyncErrors(async (req, res, next) => {
     });
 
 });
+
+
+//get all products with Search and filter  => /api/v1/prodct/products
+exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
+    
+    const products = await Product.find();
+
+    res.status(201).json({
+        success: true,
+        products
+    })
+});
