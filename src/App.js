@@ -39,6 +39,8 @@ import ProcessOrder from './component/Admin/ProcessOrder';
 import UserList from './component/Admin/UserList';
 import UpdateUser from './component/Admin/UpdateUser';
 import ProductReviews from './component/Admin/ProductReviews';
+import { ToastContainer, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const {isAuthenticated, user} = useSelector((state) => state.user);
   
@@ -63,6 +65,7 @@ function App() {
   
   return (
     <BrowserRouter>
+    <ToastContainer position="bottom-center" theme="colored" autoClose={3000} transition={Zoom}/>
     <Header/>
     {isAuthenticated && <UserOptions user={user}/> }
     <Routes>

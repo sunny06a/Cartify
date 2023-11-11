@@ -8,16 +8,23 @@ import {
 } from "../../actions/productActions";
 import ReviewCard from "./ReviewCard.js";
 import Loader from "../layout/Loader/Loader";
-// import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
 import { addItemsToCart } from "../../actions/CartActions";
 import { NEW_REVIEW_RESET } from "../../constants/productConstants";
 import { useParams } from "react-router-dom";
 import Carousel from "react-material-ui-carousel";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Rating } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Rating,
+} from "@mui/material";
+import { toast } from "react-toastify";
+
 const ProductDetails = () => {
   const dispatch = useDispatch();
-  // const alert = useAlert();
   const params = useParams();
 
   const { product, loading, error } = useSelector(
@@ -56,7 +63,7 @@ const ProductDetails = () => {
 
   const addToCartHandler = () => {
     dispatch(addItemsToCart(params.id, quantity));
-    // alert.success("Item Added To Cart");
+    toast.success("Item Added to Cart");
   };
 
   const submitReviewToggle = () => {
@@ -77,17 +84,17 @@ const ProductDetails = () => {
 
   useEffect(() => {
     if (error) {
-      // alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (reviewError) {
-      alert.error(reviewError);
+      toast.error(reviewError);
       dispatch(clearErrors());
     }
 
     if (success) {
-      // alert.success("Review Submitted Successfully");
+      toast.success("Review Posted Successfully");
       dispatch({ type: NEW_REVIEW_RESET });
     }
     dispatch(getProductDetails(params.id));
@@ -99,7 +106,7 @@ const ProductDetails = () => {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title={`${product.name} -- ECOMMERCE`} />
+          <MetaData title={`${product.name} | Cartify`} />
           <div className="ProductDetails">
             <div>
               <Carousel>
@@ -107,7 +114,7 @@ const ProductDetails = () => {
                   product.images.map((item, i) => (
                     <img
                       className="CarouselImage"
-                      key={i} 
+                      key={i}
                       src={item.url}
                       alt={`${i} Slide`}
                     />
@@ -206,6 +213,7 @@ const ProductDetails = () => {
           )}
         </Fragment>
       )}
+      
     </Fragment>
   );
 };

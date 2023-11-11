@@ -5,10 +5,10 @@ import { clearErrors, getProduct } from "../../actions/productActions";
 import Loader from "../layout/Loader/Loader";
 import ProductCard from "../Home/ProductCard";
 import Pagination from "react-js-pagination";
-// import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
-import {useParams} from 'react-router-dom'
+import { useParams } from "react-router-dom";
 import { Slider, Typography } from "@mui/material";
+import {toast } from "react-toastify";
 const categories = [
   "Laptop",
   "Footwear",
@@ -21,8 +21,7 @@ const categories = [
 
 const Products = () => {
   const dispatch = useDispatch();
-  const params = useParams()
-  // const alert = useAlert();
+  const params = useParams();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([0, 25000]);
@@ -52,7 +51,7 @@ const Products = () => {
 
   useEffect(() => {
     if (error) {
-      // alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
@@ -65,7 +64,7 @@ const Products = () => {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title="PRODUCTS -- ECOMMERCE" />
+          <MetaData title="PRODUCTS | Cartify" />
           <h2 className="productsHeading">Products</h2>
 
           <div className="products">

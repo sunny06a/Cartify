@@ -6,13 +6,14 @@ import './LoginSignUp.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { login, clearErrors, register } from '../../actions/userActions'
 import { useNavigate,useLocation } from 'react-router-dom'
+import { toast} from 'react-toastify';
+import MetaData from '../layout/MetaData'
 
 const LoginSignUp = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const location = useLocation();
-    const {loading, error, isAuthenticated} = useSelector(state => state.user);
-    
+    const locations = useLocation();
+    const {loading, error, isAuthenticated} = useSelector(state => state.user);  
     
     const loginTab = useRef(null);
     const registerTab = useRef(null);        
@@ -60,16 +61,18 @@ const LoginSignUp = () => {
             setUser({...user, [e.target.name]:e.target.value});
         }
     }
-    let redirect = location.search ? location.search.split('=')[1] : '/';
+    let redirect = locations.search ? locations.search.split('=')[1] : '/';
     
     useEffect(() => {
         if(error){ 
+            toast.error(error);
             dispatch(clearErrors());
         }  
         if(isAuthenticated){
+            toast.success('Login Successful');
             navigate(redirect);
         }
-    },[dispatch, error, isAuthenticated,location.search, redirect, navigate]);
+    },[dispatch, error, isAuthenticated,locations.search, redirect, navigate]);
 
 
 
@@ -94,6 +97,7 @@ const LoginSignUp = () => {
     <Fragment>
         {loading ? <Loader /> : (
             <Fragment>
+            <MetaData title={'Login | Cartify'}/>
             <div className='LoginSignUpContainer'>
                 <div className='LoginSignUpBox'>
                     <div>
