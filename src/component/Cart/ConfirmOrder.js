@@ -7,7 +7,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Typography } from "@mui/material";
 
 const ConfirmOrder = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
 

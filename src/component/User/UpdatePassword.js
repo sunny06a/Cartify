@@ -7,7 +7,7 @@ import { updatePassword, clearErrors } from '../../actions/userActions'
 import { useNavigate } from 'react-router-dom'
 import { UPDATE_PASSWORD_RESET } from '../../constants/userConstants'
 import MetaData from '../layout/MetaData'
-
+import { toast } from 'react-toastify'
 const UpdatePassword = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -30,9 +30,11 @@ const UpdatePassword = () => {
  
     useEffect(() => {
         if(error){
+            toast.error(error);
             dispatch(clearErrors());
         }  
         if(isUpdated){
+            toast.success('Password Updated Successfully');
             navigate('/profile');
             dispatch({type: UPDATE_PASSWORD_RESET});
         }

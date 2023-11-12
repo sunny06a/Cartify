@@ -2,14 +2,23 @@ import React from "react";
 import "./Sidebar.css";
 import logo from "../../images/logo.png";
 import { Link } from "react-router-dom";
-import { Add, Dashboard, ExpandMore, ImportExport, ListAlt, People, PostAdd, RateReview } from "@mui/icons-material";
+import {
+  Add,
+  Dashboard,
+  ExpandMore,
+  ImportExport,
+  ListAlt,
+  People,
+  PostAdd,
+  RateReview,
+} from "@mui/icons-material";
 import { TreeItem, TreeView } from "@mui/x-tree-view";
 
 const Sidebar = () => {
   return (
     <div className="sidebar">
       <Link to="/">
-        <img src={logo} alt="Ecommerce" />
+        <img src={logo} alt="Cartify" />
       </Link>
       <Link to="/admin/dashboard">
         <p>
@@ -20,7 +29,7 @@ const Sidebar = () => {
         <TreeView
           defaultCollapseIcon={<ExpandMore />}
           defaultExpandIcon={<ImportExport />}
-        > 
+        >
           <TreeItem nodeId="1" label="Products">
             <Link to="/admin/products">
               <TreeItem nodeId="2" label="All" icon={<PostAdd />} />

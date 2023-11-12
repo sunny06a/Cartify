@@ -10,10 +10,10 @@ import { useNavigate } from "react-router-dom";
 import { Delete, Edit } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import {toast} from 'react-toastify';
 const UsersList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-//  const alert = useAlert();
 
   const { error, users } = useSelector((state) => state.allUsers);
 
@@ -29,17 +29,17 @@ const UsersList = () => {
 
   useEffect(() => {
     if (error) {
-      // alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (deleteError) {
-      // alert.error(deleteError);
+      toast.error(deleteError);
       dispatch(clearErrors());
     }
 
     if (isDeleted) {
-      // alert.success(message);
+      toast.success(message);
       navigate("/admin/users");
       dispatch({ type: DELETE_USER_RESET });
     }
@@ -70,10 +70,8 @@ const UsersList = () => {
       minWidth: 150,
       flex: 0.3,
       cellClassName: (params) => {
-        return params.getValue(params.id, "role") === "admin"
-          ? "greenColor"
-          : "redColor";
-      },
+        return params.value === "admin" ? "greenColor" : "redColor";
+      }
     },
 
     {
@@ -86,13 +84,13 @@ const UsersList = () => {
       renderCell: (params) => {
         return (
           <Fragment>
-            <Link to={`/admin/user/${params.getValue(params.id, "id")}`}>
+            <Link to={`/admin/user/${params.id}`}>
               <Edit />
             </Link>
 
             <Button
               onClick={() =>
-                deleteUserHandler(params.getValue(params.id, "id"))
+                deleteUserHandler(params.id)
               }
             >
               <Delete />
@@ -131,6 +129,12 @@ const UsersList = () => {
             disableSelectionOnClick
             className="productListTable"
             autoHeight
+            getCellClassName={(params) => {
+              if (params.field === 'role') {
+                return '';
+              }
+              return params.value ==="admin" ? 'redColor' : 'greenColor';
+            }}          
           />
         </div>
       </div>

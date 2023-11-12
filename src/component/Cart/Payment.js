@@ -9,19 +9,17 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-
 import axios from "axios";
 import "./Payment.css";
 import { createOrder, clearErrors } from "../../actions/OrderActions";
 import { CreditCard, Event, VpnKey } from "@mui/icons-material";
 import { Typography } from "@mui/material";
-import {useNavigate} from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const Payment = ({ history }) => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-//   const alert = useAlert();
   const stripe = useStripe();
   const elements = useElements();
   const payBtn = useRef(null);
@@ -83,32 +81,29 @@ const Payment = ({ history }) => {
 
       if (result.error) {
         payBtn.current.disabled = false;
-
-        // alert.error(result.error.message);
+        toast.error(result.error.message);
       } else {
         if (result.paymentIntent.status === "succeeded") {
           order.paymentInfo = {
             id: result.paymentIntent.id,
             status: result.paymentIntent.status,
           };
-
+          toast.success("Order placed successfully");
           dispatch(createOrder(order));
-
           navigate("/success");
         } else {
-            console.log("error");
-            //   alert.error("There's some issue while processing payment ");
+          toast.error("There is some issue while payment processing");
         }
       }
     } catch (error) {
       payBtn.current.disabled = false;
-    //   alert.error(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 
   useEffect(() => {
     if (error) {
-    //   alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
   }, [dispatch, error]);

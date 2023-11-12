@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import MetaData from "../layout/MetaData";
 import SideBar from "./Sidebar";
 import { UPDATE_USER_RESET } from "../../constants/userConstants";
@@ -17,7 +17,6 @@ const UpdateUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
-  // const alert = useAlert();
 
   const { loading, error, user } = useSelector((state) => state.userDetails);
 
@@ -42,21 +41,21 @@ const UpdateUser = () => {
       setRole(user.role);
     }
     if (error) {
-      // alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (updateError) {
-      // alert.error(updateError);
+      toast.warning(updateError);
       dispatch(clearErrors());
     }
 
     if (isUpdated) {
-      // alert.success("User Updated Successfully");
+      toast.success("User Updated Successfully");
       navigate("/admin/users");
       dispatch({ type: UPDATE_USER_RESET });
     }
-  }, [dispatch, error, navigate , isUpdated, updateError, user, userId]);
+  }, [dispatch, error, navigate, isUpdated, updateError, user, userId]);
 
   const updateUserSubmitHandler = (e) => {
     e.preventDefault();

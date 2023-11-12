@@ -2,7 +2,6 @@ import React, { Fragment, useEffect } from "react";
 import "./ProductList.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-// import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
 import SideBar from "./Sidebar";
 import {
@@ -11,14 +10,14 @@ import {
   clearErrors,
 } from "../../actions/OrderActions";
 import { DELETE_ORDER_RESET } from "../../constants/orderConstants";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { Delete, Edit } from "@mui/icons-material";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
+import { toast } from "react-toastify";
 const OrderList = () => {
   const dispatch = useDispatch();
-    const navigate = useNavigate();
-//   const alert =  useAlert();
+  const navigate = useNavigate();
 
   const { error, orders } = useSelector((state) => state.allOrders);
 
@@ -30,17 +29,17 @@ const OrderList = () => {
 
   useEffect(() => {
     if (error) {
-    //   alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (deleteError) {
-    //   alert.error(deleteError);
+      toast.warning(deleteError);
       dispatch(clearErrors());
     }
 
     if (isDeleted) {
-    //   alert.success("Order Deleted Successfully");
+      toast.success("Order Deleted Successfully");
       navigate("/admin/orders");
       dispatch({ type: DELETE_ORDER_RESET });
     }
@@ -57,9 +56,7 @@ const OrderList = () => {
       minWidth: 150,
       flex: 0.5,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
-          ? "greenColor"
-          : "redColor";
+        return params.value === "Delivered" ? "greenColor" : "redColor";
       },
     },
     {
@@ -88,15 +85,11 @@ const OrderList = () => {
       renderCell: (params) => {
         return (
           <Fragment>
-            <Link to={`/admin/order/${params.getValue(params.id, "id")}`}>
+            <Link to={`/admin/order/${params.id}`}>
               <Edit />
             </Link>
 
-            <Button
-              onClick={() =>
-                deleteOrderHandler(params.getValue(params.id, "id"))
-              }
-            >
+            <Button onClick={() => deleteOrderHandler(params.id)}>
               <Delete />
             </Button>
           </Fragment>

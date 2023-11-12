@@ -7,6 +7,8 @@ import { updateProfile, clearErrors, loadUser } from '../../actions/userActions'
 import { useNavigate } from 'react-router-dom'
 import { UPDATE_PROFILE_RESET } from '../../constants/userConstants'
 import MetaData from '../layout/MetaData'
+import { toast } from 'react-toastify'
+
 const UpdateProfile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -49,9 +51,11 @@ const UpdateProfile = () => {
             setAvatarPreview(user.avatar.url);
         }
         if(error){
+            toast.error(error);
             dispatch(clearErrors());
         }  
         if(isUpdated){
+            toast.success('Profile Updated Successfully');
             dispatch(loadUser());
             navigate('/profile');
             dispatch({type: UPDATE_PROFILE_RESET});

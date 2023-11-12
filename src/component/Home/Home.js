@@ -6,15 +6,15 @@ import MetaData from "../layout/MetaData";
 import { clearErrors, getProduct } from "../../actions/productActions";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../layout/Loader/Loader";
-
+import {toast} from 'react-toastify';
 const Home = () => {
-  // const alert = useAlert();
+  
   const dispatch = useDispatch();
   const { loading, error, products } = useSelector((state) => state.products);
   console.log(products);
   useEffect(() => {
     if (error) {
-      // alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
     dispatch(getProduct());
@@ -26,7 +26,7 @@ const Home = () => {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title="CARTIFY " />
+          <MetaData title=" CARTIFY " />
 
           <div className="banner">
             <p>Welcome to CARTIFY</p>

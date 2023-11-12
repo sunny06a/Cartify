@@ -6,7 +6,6 @@ import {
   getAllReviews,
   deleteReviews,
 } from "../../actions/productActions";
-// import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
 import SideBar from "./Sidebar";
 import { DELETE_REVIEW_RESET } from "../../constants/productConstants";
@@ -14,10 +13,10 @@ import {useNavigate} from 'react-router-dom'
 import { Button } from "@mui/material";
 import { Delete, Star } from "@mui/icons-material";
 import { DataGrid } from "@mui/x-data-grid";
+import { toast } from "react-toastify"; 
 const ProductReviews = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-//   const alert = useAlert();
 
   const { error: deleteError, isDeleted } = useSelector(
     (state) => state.review
@@ -43,17 +42,17 @@ const ProductReviews = () => {
       dispatch(getAllReviews(productId));
     }
     if (error) {
-    //   alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (deleteError) {
-    //   alert.error(deleteError);
+      toast.warning(deleteError);
       dispatch(clearErrors());
     }
 
     if (isDeleted) {
-    //   alert.success("Review Deleted Successfully");
+      toast.success("Review Deleted Successfully");
       navigate("/admin/reviews");
       dispatch({ type: DELETE_REVIEW_RESET });
     }
@@ -84,9 +83,8 @@ const ProductReviews = () => {
       flex: 0.4,
 
       cellClassName: (params) => {
-        return params.getValue(params.id, "rating") >= 3
-          ? "greenColor"
-          : "redColor";
+        return params.value >= 3 ? "greenColor" : "redColor";
+     
       },
     },
 
@@ -102,7 +100,7 @@ const ProductReviews = () => {
           <Fragment>
             <Button
               onClick={() =>
-                deleteReviewHandler(params.getValue(params.id, "id"))
+                deleteReviewHandler(params.id)
               }
             >
               <Delete />

@@ -5,15 +5,21 @@ import { saveShippingInfo } from "../../actions/CartActions";
 import MetaData from "../layout/MetaData";
 import { Country, State } from "country-state-city";
 import CheckoutSteps from "../Cart/CheckoutSteps";
-import {useNavigate} from 'react-router-dom';
-import { Home, LocationCity, Phone, PinDrop, Public, TransferWithinAStation } from "@mui/icons-material";
-
+import { useNavigate } from "react-router-dom";
+import {
+  Home,
+  LocationCity,
+  Phone,
+  PinDrop,
+  Public,
+  TransferWithinAStation,
+} from "@mui/icons-material";
+import { toast } from "react-toastify";
 
 const Shipping = ({ history }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
-  //const alert = useAlert();
+
   const { shippingInfo } = useSelector((state) => state.cart);
 
   const [address, setAddress] = useState(shippingInfo.address);
@@ -27,8 +33,7 @@ const Shipping = ({ history }) => {
     e.preventDefault();
 
     if (phoneNumber.length < 10 || phoneNumber.length > 10) {
-    //   alert.error("Phone Number should be 10 digits Long");
-     console.log("Phone Number should be 10 digits Long");
+      toast.warning("Phone Number should be 10 digits Long");
       return;
     }
     dispatch(

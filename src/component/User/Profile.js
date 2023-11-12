@@ -2,15 +2,17 @@ import React, { Fragment, useEffect } from "react";
 import { useSelector } from "react-redux";
 import MetaData from "../layout/MetaData";
 import Loader from "../layout/Loader/Loader";
-import { Link } from "react-router-dom";
 import "./Profile.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 const Profile = () => {
     const navigate = useNavigate();
   const { user, loading, isAuthenticated } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (isAuthenticated === false) {
+      toast.error("Please Login to access your profile");
       navigate("/login");
     }
   }, [navigate, isAuthenticated]);

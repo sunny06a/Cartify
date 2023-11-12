@@ -7,7 +7,7 @@ import {
   deleteProduct,
 } from "../../actions/productActions";
 import { Link } from "react-router-dom";
-// import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import MetaData from "../layout/MetaData";
 import SideBar from "./Sidebar";
 import {useNavigate} from 'react-router-dom';
@@ -19,7 +19,6 @@ import { DELETE_PRODUCT_RESET } from "../../constants/productConstants";
 const ProductList = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const params = useParams();
 
   const { error, products } = useSelector((state) => state.products);
 
@@ -33,17 +32,17 @@ const ProductList = () => {
 
   useEffect(() => {
     if (error) {
-    //   alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (deleteError) {
-    //   alert.error(deleteError);
+      toast.warning(deleteError);
       dispatch(clearErrors());
     }
 
     if (isDeleted) {
-    //   alert.success("Product Deleted Successfully");
+      toast.success("Product Deleted Successfully");
       navigate("/admin/dashboard");
       dispatch({ type: DELETE_PRODUCT_RESET });
     }
@@ -86,13 +85,13 @@ const ProductList = () => {
       renderCell: (params) => {
         return (
           <Fragment>
-            <Link to={`/admin/product/${params.getValue(params.id, "id")}`}>
+            <Link to={`/admin/product/${params.id}`}>
               <Edit />
             </Link>
 
             <Button
               onClick={() =>
-                deleteProductHandler(params.getValue(params.id, "id"))
+                deleteProductHandler(params.id)
               }
             >
               <Delete />

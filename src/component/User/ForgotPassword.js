@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, forgotPassword } from "../../actions/userActions";
 import MetaData from "../layout/MetaData";
 import { MailOutline } from "@mui/icons-material";
+import {toast} from 'react-toastify';
+import { Link } from "react-router-dom";
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
@@ -26,12 +28,12 @@ const ForgotPassword = () => {
 
   useEffect(() => {
     if (error) {
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (message) {
-    //   alert.success(message);
-    console.log(message);
+    toast.success(message);
     }
   }, [dispatch, error, message]);
 
@@ -67,6 +69,7 @@ const ForgotPassword = () => {
                   value="Send"
                   className="forgotPasswordBtn"
                 />
+                <Link to="/login" >Back to Login</Link>
               </form>
             </div>
           </div>

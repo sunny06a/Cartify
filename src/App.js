@@ -215,7 +215,7 @@ function App() {
           <ProtectedRoute redirectTo="/login">
             <ProductList/>
           </ProtectedRoute>
-        }
+        } 
       />
     </Routes>
         

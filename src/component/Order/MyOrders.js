@@ -8,11 +8,9 @@ import MetaData from "../layout/MetaData";
 import { Launch } from "@mui/icons-material";
 import { DataGrid } from "@mui/x-data-grid";
 import { Typography } from "@mui/material";
-
+import { toast } from "react-toastify";
 const MyOrders = () => {
   const dispatch = useDispatch();
-
-  // const alert = useAlert();
 
   const { loading, error, orders } = useSelector((state) => state.myOrders);
   const { user } = useSelector((state) => state.user);
@@ -26,9 +24,7 @@ const MyOrders = () => {
       minWidth: 150,
       flex: 0.5,
       cellClassName: (params) => {
-        return params.value === "Delivered"
-          ? "greenColor"
-          : "redColor";
+        return params.value === "Delivered" ? "greenColor" : "redColor";
       },
     },
     {
@@ -54,7 +50,7 @@ const MyOrders = () => {
       minWidth: 150,
       type: "number",
       sortable: false,
-      renderCell : (params) => {
+      renderCell: (params) => {
         return (
           <Link to={`/order/${params.id}`} className="orderDetailsLink">
             <Launch />
@@ -77,10 +73,9 @@ const MyOrders = () => {
 
   useEffect(() => {
     if (error) {
-      // alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
-
     dispatch(myOrders());
   }, [dispatch, error]);
 
@@ -98,7 +93,7 @@ const MyOrders = () => {
             pageSize={10}
             disableSelectionOnClick
             className="myOrdersTable"
-            autoHeight        
+            autoHeight
           />
 
           <Typography id="myOrdersHeading">{user.name}'s Orders</Typography>

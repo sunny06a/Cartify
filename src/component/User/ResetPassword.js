@@ -4,8 +4,9 @@ import Loader from "../layout/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, resetPassword } from "../../actions/userActions";
 import MetaData from "../layout/MetaData";
-import {useNavigate, useParams} from 'react-router-dom';
+import { useNavigate, useParams } from "react-router-dom";
 import { Lock, LockOpen } from "@mui/icons-material";
+import { toast } from "react-toastify";
 
 const ResetPassword = () => {
   const dispatch = useDispatch();
@@ -31,13 +32,12 @@ const ResetPassword = () => {
 
   useEffect(() => {
     if (error) {
-    //   alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (success) {
-    //   alert.success("Password Updated Successfully");
-    console.log("Password Updated Successfully");
+      toast.success("Password Updated Successfully");
       navigate("/login");
     }
   }, [dispatch, error, navigate, success]);

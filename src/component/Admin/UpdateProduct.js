@@ -5,19 +5,23 @@ import {
   updateProduct,
   getProductDetails,
 } from "../../actions/productActions";
-// import { useAlert } from "react-alert";
-// import { Button } from "@material-ui/core";
+import { toast } from "react-toastify";
 import MetaData from "../layout/MetaData";
 import SideBar from "./Sidebar";
 import { UPDATE_PRODUCT_RESET } from "../../constants/productConstants";
-import { AccountTree, AttachMoney, Description, Spellcheck, Storage } from "@mui/icons-material";
+import {
+  AccountTree,
+  AttachMoney,
+  Description,
+  Spellcheck,
+  Storage,
+} from "@mui/icons-material";
 import { Button } from "@mui/material";
-import { useNavigate , useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const UpdateProduct = () => {
   const dispatch = useDispatch();
-//   const alert = useAlert();
-    const navigate = useNavigate();
-    const params = useParams();
+  const navigate = useNavigate();
+  const params = useParams();
   const { error, product } = useSelector((state) => state.productDetails);
 
   const {
@@ -59,29 +63,21 @@ const UpdateProduct = () => {
       setOldImages(product.images);
     }
     if (error) {
-    //   alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
 
     if (updateError) {
-    //   alert.error(updateError);
+      toast.warning(updateError);
       dispatch(clearErrors());
     }
 
     if (isUpdated) {
-    //   alert.success("Product Updated Successfully");
-    navigate('/admin/products') 
-    dispatch({ type: UPDATE_PRODUCT_RESET });
+      toast.success("Product Updated Successfully");
+      navigate("/admin/products");
+      dispatch({ type: UPDATE_PRODUCT_RESET });
     }
-  }, [
-    dispatch,
-    error,
-    navigate,
-    isUpdated,
-    productId,
-    product,
-    updateError,
-  ]);
+  }, [dispatch, error, navigate, isUpdated, productId, product, updateError]);
 
   const updateProductSubmitHandler = (e) => {
     e.preventDefault();

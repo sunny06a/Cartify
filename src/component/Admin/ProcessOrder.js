@@ -9,16 +9,16 @@ import {
 } from "../../actions/OrderActions";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../layout/Loader/Loader";
-// import { useAlert } from "react-alert";
 import { UPDATE_ORDER_RESET } from "../../constants/orderConstants";
 import "./ProcessOrder.css";
-import {useNavigate, useParams} from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import { Button, Typography } from "@mui/material";
 import { AccountTree } from "@mui/icons-material";
+import { toast } from "react-toastify";
 const ProcessOrder = () => {
   const { order, error, loading } = useSelector((state) => state.orderDetails);
   const { error: updateError, isUpdated } = useSelector((state) => state.order);
-  const navigate = useNavigate();
+
   const params = useParams();
   const updateOrderSubmitHandler = (e) => {
     e.preventDefault();
@@ -31,21 +31,20 @@ const ProcessOrder = () => {
   };
 
   const dispatch = useDispatch();
-//   const alert = useAlert();
 
   const [status, setStatus] = useState("");
 
   useEffect(() => {
     if (error) {
-    //   alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
     if (updateError) {
-    //   alert.error(updateError);
+      toast.warning(updateError);
       dispatch(clearErrors());
     }
     if (isUpdated) {
-    //   alert.success("Order Updated Successfully");
+      toast.success("Order Updated Successfully");
       dispatch({ type: UPDATE_ORDER_RESET });
     }
 

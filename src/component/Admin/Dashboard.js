@@ -9,6 +9,17 @@ import { getAllOrders } from "../../actions/OrderActions.js";
 import { getAllUsers } from "../../actions/userActions.js";
 import MetaData from "../layout/MetaData";
 import { Typography } from "@mui/material";
+import {
+  Chart as chartjs,
+  ArcElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -40,6 +51,29 @@ const Dashboard = () => {
       totalAmount += item.totalPrice;
     });
 
+  chartjs.register(
+    CategoryScale,
+    ArcElement,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Earnings",
+      },
+    },
+  };
+
   const lineState = {
     labels: ["Initial Amount", "Amount Earned"],
     datasets: [
@@ -56,8 +90,9 @@ const Dashboard = () => {
     labels: ["Out of Stock", "InStock"],
     datasets: [
       {
-        backgroundColor: ["#00A6B4", "#6800B4"],
-        hoverBackgroundColor: ["#4B5000", "#35014F"],
+        backgroundColor: ["rgba(255, 99, 132, 0.5)", "rgba(54, 162, 235, 0.5)"],
+        borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+        borderWidth: 1,
         data: [outOfStock, products.length - outOfStock],
       },
     ],
@@ -94,7 +129,7 @@ const Dashboard = () => {
         </div>
 
         <div className="lineChart">
-          <Line data={lineState} />
+          <Line data={lineState} options={options} />
         </div>
 
         <div className="doughnutChart">

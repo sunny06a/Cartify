@@ -3,10 +3,10 @@ import "./Cart.css";
 import CartItemCard from "./CartItemCard";
 import { useSelector, useDispatch } from "react-redux";
 import { addItemsToCart, removeItemsFromCart } from "../../actions/CartActions";
-import {useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { RemoveShoppingCart } from "@mui/icons-material";
 import { Typography } from "@mui/material";
-
+import MetaData from "../layout/MetaData";
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,6 +38,7 @@ const Cart = () => {
 
   return (
     <Fragment>
+      <MetaData title={"Your Cart"} />
       {cartItems.length === 0 ? (
         <div className="emptyCart">
           <RemoveShoppingCart />

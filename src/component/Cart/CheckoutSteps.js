@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-// import { Typography, Stepper, StepLabel, Step } from "@material-ui/core";
 import "./CheckoutSteps.css";
 import { AccountBalance, LibraryAddCheck, LocalShipping } from "@mui/icons-material";
 import { Step, StepLabel, Stepper, Typography } from "@mui/material";
