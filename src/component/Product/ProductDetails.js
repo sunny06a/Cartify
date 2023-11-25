@@ -12,7 +12,8 @@ import MetaData from "../layout/MetaData";
 import { addItemsToCart } from "../../actions/CartActions";
 import { NEW_REVIEW_RESET } from "../../constants/productConstants";
 import { useParams } from "react-router-dom";
-import Carousel from "react-material-ui-carousel";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";   
 import {
   Button,
   Dialog,

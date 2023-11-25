@@ -18,11 +18,16 @@
   border: 1px solid white;
 }
 
-
 .ProductDetails > div:last-child {
   align-items: flex-start;
 }
 
+.CarouselImage {
+  width: 20vmax;
+  min-height: 10vmax;
+  max-height: 30vmax;
+  /* height: 30vmax; */
+} 
 
 .detailsBlock-1 > h2 {
   color: rgb(54, 54, 54);
@@ -75,7 +80,7 @@
   background-color: rgba(0, 0, 0, 0.767);
 }
 
-.detailsBlock-3-1-1 > p {
+.detailsBlock-3-1-1 > input {
   border: none;
   padding: 0.5vmax;
   width: 1vmax;
@@ -83,10 +88,6 @@
   outline: none;
   font: 400 0.8vmax "Roboto";
   color: rgba(0, 0, 0, 0.74);
-}
-.qty{
-  display: inline;
-
 }
 
 .detailsBlock-3-1 > button:last-child {
