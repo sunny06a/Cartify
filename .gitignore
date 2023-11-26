@@ -1,6 +1,6 @@
 /node_modules
-/config
 
+# ignore the config folder
+config/config.env
+config/database.js
 
-# ignore all files in the config directory
-config/*
