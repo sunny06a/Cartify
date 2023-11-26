@@ -191,21 +191,21 @@ exports.deleteReview = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler('Product not found', 404));
     }
 
-    const newReviews = product.reviews.filter(rev => rev._id.toString() !== req.query.id.toString());
+    const reviews = product.reviews.filter(rev => rev._id.toString() !== req.query.id.toString());
     
     let avg=0;
-    newReviews.forEach((rev) => { avg+=rev.rating})
+    reviews.forEach((rev) => { avg+=rev.rating})
     let ratings = 0;
     if (reviews.length === 0) {
         ratings = 0
     } else {
-        ratings = avg / newReviews.length
+        ratings = avg / reviews.length
     }
     
-    const numOfReviews = newReviews.length;
+    const numOfReviews = reviews.length;
 
     await Product.findByIdAndUpdate(req.query.productId, {
-        reviews: newReviews,
+        reviews: reviews,
         ratings,
         numOfReviews
     }, {
@@ -216,7 +216,6 @@ exports.deleteReview = catchAsyncErrors(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        reviews: product.reviews
     });
 
 });
