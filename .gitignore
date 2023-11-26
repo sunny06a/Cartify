@@ -1,1 +1,6 @@
 /node_modules
+/config
+
+
+# ignore all files in the config directory
+config/*
