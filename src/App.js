@@ -41,10 +41,12 @@ import UpdateUser from './component/Admin/UpdateUser';
 import ProductReviews from './component/Admin/ProductReviews';
 import { ToastContainer, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import NotFound from "./component/layout/Not Found/NotFound";
+
 function App() {
   const {isAuthenticated, user} = useSelector((state) => state.user);
   
-  const [stripeApiKey, setStripeApiKey] = useState('');
+  const [stripeApiKey, setStripeApiKey] = useState("");
   
   async function getStripeApiKey() { 
     const { data } = await axios.get('/api/v1/stripeapikey');
@@ -62,12 +64,30 @@ function App() {
     store.dispatch(loadUser());
     getStripeApiKey();
   }, []);
-  
+
+  window.addEventListener("contextmenu", (e) => e.preventDefault());
+
   return (
     <BrowserRouter>
     <ToastContainer position="bottom-center" theme="colored" autoClose={3000} transition={Zoom}/>
     <Header/>
     {isAuthenticated && <UserOptions user={user}/> }
+    {
+      stripeApiKey && 
+      <Elements stripe={loadStripe(stripeApiKey)}>
+        <Routes>
+          <Route
+            path="/payment/process"
+            element={
+              <ProtectedRoute redirectTo="/login">
+                <Payment/>
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </Elements>
+    }
+   
     <Routes>
       <Route exact path="/" element={<Home/>} />
       <Route  path="/product/:id" element={<ProductDetails/>} />
@@ -114,7 +134,7 @@ function App() {
     </Routes>
     <Routes>
     <Route
-        path="/login/shipping"
+        path="/shipping"
         element={
           <ProtectedRoute redirectTo="/login">
             <Shipping />
@@ -129,23 +149,7 @@ function App() {
           </ProtectedRoute>
         }
       />  
-    </Routes> 
-    {
-      stripeApiKey && 
-      <Elements stripe={loadStripe(stripeApiKey)}>
-        <Routes>
-          <Route
-            path="/payment/process"
-            element={
-              <ProtectedRoute redirectTo="/login">
-                <Payment/>
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </Elements>
-    }
-    
+    </Routes>  
     <Routes>
     <Route
         path="/success"
@@ -243,6 +247,12 @@ function App() {
           </ProtectedRoute>
         }
       />
+      <Route
+          element={
+            window.location.pathname === "/payment/process" ? null : NotFound
+          }
+        />
+
   </Routes>
 
     <Footer/>

@@ -140,7 +140,7 @@ const ProductDetails = () => {
                 <div className="detailsBlock-3-1">
                   <div className="detailsBlock-3-1-1">
                     <button onClick={decreaseQuantity}>-</button>
-                    <p className="qty">{quantity}</p>
+                    <p className="qty"> {quantity} </p>
                     <button onClick={increaseQuantity}>+</button>
                   </div>
                   <button
@@ -152,7 +152,7 @@ const ProductDetails = () => {
                 </div>
 
                 <p>
-                  Status:
+                  Status: 
                   <b className={product.stock < 1 ? "redColor" : "greenColor"}>
                     {product.stock < 1 ? "OutOfStock" : "InStock"}
                   </b>

@@ -1,5 +1,5 @@
 .banner {
-    background-image: url("../../images/cover.jfif");
+    background-image: url("../../images/cover2.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -9,7 +9,7 @@
     text-align: center;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: tomato;
   }
   
   .banner > h1 {
@@ -25,7 +25,7 @@
   .banner > a > button {
     margin-bottom: 5vmax;
     cursor: pointer;
-    background-color: white;
+    background-color: rgb(134, 134, 148);
     border: 1px solid white;
     border-radius: 0;
     padding: 1vmax;
@@ -38,18 +38,7 @@
     color: white;
   }
   
-  .banner::after {
-    content: "";
-    width: 100vw;
-    height: 100vmin;
-    background-color: #ffffff;
-    position: absolute;
-    top: 0%;
-    left: 0;
-    clip-path: polygon(100% 68%, 0 100%, 100% 100%);
-    max-width: 100%;
-  }
-  
+ 
   .homeHeading {
     text-align: center;
     font-family: Roboto;
