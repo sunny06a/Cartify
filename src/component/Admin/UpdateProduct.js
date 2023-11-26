@@ -59,7 +59,7 @@ const UpdateProduct = () => {
       setDescription(product.description);
       setPrice(product.price);
       setCategory(product.category);
-      setStock(product.Stock);
+      setStock(product.stock);
       setOldImages(product.images);
     }
     if (error) {
@@ -88,7 +88,7 @@ const UpdateProduct = () => {
     myForm.set("price", price);
     myForm.set("description", description);
     myForm.set("category", category);
-    myForm.set("Stock", Stock);
+    myForm.set("stock", Stock);
 
     images.forEach((image) => {
       myForm.append("images", image);
@@ -182,7 +182,7 @@ const UpdateProduct = () => {
               <Storage />
               <input
                 type="number"
-                placeholder="Stock"
+                placeholder="stock"
                 required
                 onChange={(e) => setStock(e.target.value)}
                 value={Stock}
@@ -217,7 +217,7 @@ const UpdateProduct = () => {
               type="submit"
               disabled={loading ? true : false}
             >
-              Create
+              Update Product
             </Button>
           </form>
         </div>

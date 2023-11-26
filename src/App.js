@@ -70,20 +70,10 @@ function App() {
     {isAuthenticated && <UserOptions user={user}/> }
     <Routes>
       <Route exact path="/" element={<Home/>} />
-    </Routes>
-    <Routes>
       <Route  path="/product/:id" element={<ProductDetails/>} />
-    </Routes>
-    <Routes>
       <Route exact path="/products" element={<Products/>} />
-    </Routes>
-    <Routes>
       <Route path="/products/:keyword" element={<Products/>} />
-    </Routes>
-    <Routes>
       <Route exact path="/search" element={<Search/>} />
-    </Routes>
-    <Routes>
       <Route exact path="/login" element={<LoginSignUp/>} />
     </Routes>
     <Routes>
@@ -95,8 +85,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-    </Routes>
-    <Routes>
     <Route
         path="/profile/update"
         element={
@@ -105,8 +93,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-    </Routes>
-    <Routes>
     <Route
         path="/password/update"
         element={
@@ -115,8 +101,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-    </Routes>
-    <Routes>
     <Route
         path="/password/forgot"
         element={
@@ -124,11 +108,8 @@ function App() {
         }
       />
     </Routes>
-
     <Routes>
       <Route path ="/password/reset/:token" element={<ResetPassword/>} />
-    </Routes>
-    <Routes>
       <Route path ="/cart" element={<Cart/>} />
     </Routes>
     <Routes>
@@ -140,8 +121,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-    </Routes>
-    <Routes>
     <Route
        exact path="/order/confirm"
         element={
@@ -176,9 +155,6 @@ function App() {
           </ProtectedRoute>
         }
       />  
-    </Routes>
-
-    <Routes>
     <Route
         path="/orders"
         element={
@@ -187,8 +163,6 @@ function App() {
           </ProtectedRoute>
         }
       />  
-    </Routes>
-    <Routes>
     <Route
         path="/order/:id"
         element={
@@ -197,8 +171,6 @@ function App() {
           </ProtectedRoute>
         }
       />  
-    </Routes>
-    <Routes>
     <Route
         path="/admin/dashboard"
         element={
@@ -207,8 +179,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-    </Routes>
-    <Routes>
     <Route
         path="/admin/products"
         element={
@@ -217,9 +187,6 @@ function App() {
           </ProtectedRoute>
         } 
       />
-    </Routes>
-        
-    <Routes>
     <Route
         path="/admin/product"
         element={
@@ -228,20 +195,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-    </Routes>
-    
-    <Routes>
-    <Route
-        path="/admin/product"
-        element={
-          <ProtectedRoute redirectTo="/login">
-            <NewProduct/>
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
-    
-    <Routes>
     <Route
         path="/admin/product/:id"
         element={
@@ -250,9 +203,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-    </Routes>
-    
-    <Routes>
     <Route
         path="/admin/orders"
         element={
@@ -261,8 +211,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-    </Routes>
-    <Routes>
     <Route
         path="/admin/order/:id"
         element={
@@ -271,8 +219,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-    </Routes>
-    <Routes>
     <Route
         path="/admin/users"
         element={
@@ -281,9 +227,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-    </Routes>
-
-    <Routes>
     <Route
         path="/admin/user/:id"
         element={
@@ -292,8 +235,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-    </Routes>
-    <Routes>
     <Route
         path="/admin/reviews"
         element={
@@ -302,7 +243,7 @@ function App() {
           </ProtectedRoute>
         }
       />
-    </Routes>
+  </Routes>
 
     <Footer/>
     </BrowserRouter> 

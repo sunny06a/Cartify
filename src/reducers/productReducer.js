@@ -198,6 +198,7 @@ export const productReducer = (state = {}, action) => {
         case UPDATE_PRODUCT_FAIL:
             return {
                 ...state,
+                loading: false,
                 error: action.payload
             }
         case CLEAR_ERRORS:
@@ -248,6 +249,7 @@ export const reviewReducer = (state = {}, action) => {
             }
         case DELETE_REVIEW_SUCCESS:
             return {
+                ...state,
                 loading: false,
                 isDeleted: action.payload
             }

@@ -129,12 +129,6 @@ const UsersList = () => {
             disableSelectionOnClick
             className="productListTable"
             autoHeight
-            getCellClassName={(params) => {
-              if (params.field === 'role') {
-                return '';
-              }
-              return params.value ==="admin" ? 'redColor' : 'greenColor';
-            }}          
           />
         </div>
       </div>

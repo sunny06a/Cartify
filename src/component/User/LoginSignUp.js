@@ -11,7 +11,7 @@ import MetaData from "../layout/MetaData";
 const LoginSignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const locations = useLocation();
+  const location = useLocation();
   const { loading, error, isAuthenticated } = useSelector(
     (state) => state.user
   );
@@ -59,7 +59,7 @@ const LoginSignUp = () => {
     } else {
       setUser({ ...user, [e.target.name]: e.target.value });
     }  };
-  let redirect = locations.search ? locations.search.split("=")[1] : "/";
+    const redirect = location.search ? location.search.split("=")[1] : "/profile";
 
   useEffect(() => {
     if (error) {
@@ -67,10 +67,9 @@ const LoginSignUp = () => {
       dispatch(clearErrors());
     }
     if (isAuthenticated) {
-      toast.success("Login Successful");
       navigate(redirect);
     }
-  }, [dispatch, error, isAuthenticated,locations, redirect, navigate]);
+  }, [dispatch, error, isAuthenticated,  redirect, navigate]);
 
   const switchTabs = (e, tab) => {
     if (tab === "login") {
