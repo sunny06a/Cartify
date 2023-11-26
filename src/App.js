@@ -42,6 +42,7 @@ import ProductReviews from './component/Admin/ProductReviews';
 import { ToastContainer, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import NotFound from "./component/layout/Not Found/NotFound";
+import About from './component/layout/About/About';
 
 function App() {
   const {isAuthenticated, user} = useSelector((state) => state.user);
@@ -95,6 +96,7 @@ function App() {
       <Route path="/products/:keyword" element={<Products/>} />
       <Route exact path="/search" element={<Search/>} />
       <Route exact path="/login" element={<LoginSignUp/>} />
+      <Route exact path="/about" element={<About/>} />
     </Routes>
     <Routes>
     <Route

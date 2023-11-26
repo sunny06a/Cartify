@@ -181,6 +181,7 @@ export const orderReducer = (state = {}, action) => {
         case DELETE_ORDER_FAIL:
             return {
                 ...state,
+                loading: false,
                 error: action.payload,
             };
 

@@ -14,11 +14,9 @@ import {
     ALL_ORDERS_FAIL,
     UPDATE_ORDER_REQUEST,
     UPDATE_ORDER_SUCCESS,
-    UPDATE_ORDER_RESET,
     UPDATE_ORDER_FAIL,
     DELETE_ORDER_REQUEST,
     DELETE_ORDER_SUCCESS,
-    DELETE_ORDER_RESET,
     DELETE_ORDER_FAIL,
 
 
@@ -28,7 +26,6 @@ import axios from 'axios';
 
 // Create a new order
 
-// Create Order
 export const createOrder = (order) => async (dispatch) => {
     try {
       dispatch({ type: CREATE_ORDER_REQUEST });
