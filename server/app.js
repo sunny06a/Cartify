@@ -5,10 +5,15 @@ const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const dotenv = require('dotenv');
 const path = require('path');
-
+const cors = require("cors")
 dotenv.config({ path: 'backend/config/config.env' })
 
 //middlewares 
+app.use(cors({
+    origin: "https://Caritdy.vercel.app",
+    methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
+    credentials: true
+}));
 app.use(express.json()); 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
