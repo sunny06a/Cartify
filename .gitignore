@@ -1,0 +1,6 @@
+/node_modules
+
+# ignore the config folder
+config/config.env
+config/database.js
+
