@@ -1,28 +1,26 @@
 # dependencies
-/frontend/node_modules
-/frontend/.pnp
-/frontend/.pnp.js
+/client/node_modules
+/client/.pnp
+/client/.pnp.js
 
 # testing
-/frontend/coverage
+/client/coverage
 
 # production
-/frontend/build
+/client/build
 
 # misc
 
-/frontend/.DS_Store
-/frontend/.env.local
-/frontend/.env.development.local
-/frontend/.env.test.local
-/frontend/.env.production.local
+/client/.DS_Store
+/client/.env.local
+/client/.env.development.local
+/client/.env.test.local
+/client/.env.production.local
 
-/backend/node_modules
+/server/node_modules
 
 # ignore the config folder
-/backend/config/config.env
+/server/config/config.env
 
 
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
